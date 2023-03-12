@@ -1,4 +1,4 @@
-name: Build and deploy to GitHub Pages
+name: Build and deploy Astro site to GitHub Pages
 
 on:
   # Runs on pushes targeting the default branch
