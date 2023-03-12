@@ -3,17 +3,8 @@ import "~/styles/index.scss"
 import Layout from "~/layouts/Layout.astro"
 
 const dirPrefix = '/public/'
-const files = await (() =>
-	{
-		try
-		{
-			return Astro.glob('/public/**/*.pdf')
-		}
-		catch (_)
-		{
-			return []
-		}
-	})();
+const files = Object.keys(import.meta.glob('/public/**/*.pdf'))
+	.map(path => path.startsWith(dirPrefix) ? path.substring(dirPrefix.length) : path)
 ---
 
 <Layout
@@ -37,14 +28,11 @@ const files = await (() =>
 		?
 			<ul class="files">
 				{
-					files.map((file) => {
-						const url = file.default.substring(dirPrefix.length)
-						return (
-							<li>
-								<a href={`/${url}`}>{url}</a>
-							</li>
-						)
-					})
+					files.map(file =>
+						<li>
+							<a href={`/${file}`}>{file}</a>
+						</li>
+					)
 				}
 			</ul>
 		:
