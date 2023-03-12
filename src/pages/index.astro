@@ -7,7 +7,7 @@ const files = await (() =>
 	{
 		try
 		{
-			return Astro.glob('/public/*.pdf')
+			return Astro.glob('/public/**/*.pdf')
 		}
 		catch (_)
 		{
