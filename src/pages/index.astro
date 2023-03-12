@@ -1,15 +1,70 @@
 ---
+import "~/styles/index.scss"
+import Layout from "~/layouts/Layout.astro"
+
+const dirPrefix = '/public/'
+const files = await (() =>
+	{
+		try
+		{
+			return Astro.glob('/public/*.pdf')
+		}
+		catch (_)
+		{
+			return []
+		}
+	})();
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout
+	lang="fr"
+	title="2GETHER Files"
+>
+	<h1>2GETHER Files</h1>
+
+	{
+		(files.length > 0)
+		?
+			<ul>
+				{
+					files.map((file) => {
+						const url = file.default.substring(dirPrefix.length)
+						return (
+							<li>
+								<a href={`/${url}`}>{url}</a>
+							</li>
+						)
+					})
+				}
+			</ul>
+		:
+			<p>There are no files available.</p>
+	}
+</Layout>
+
+<style lang="scss">
+	h1 {
+		@apply text-4xl font-bold mb-4;
+	}
+
+	ul {
+		@apply list-none p-0 text-xl;
+
+		> li {
+			@apply relative m-0 p-0;
+
+			&:before {
+				content: '📄';
+			}
+
+			> a[href] {
+				@apply border-b border-dotted border-gray-300;
+				content: '';
+
+				&:hover {
+					@apply border-gray-700;
+				}
+			}
+		}
+	}
+</style>
