@@ -69,7 +69,7 @@ const formatsToType = {
 
 		<title>{Astro.props.title}</title>
 		<meta name="title" content={Astro.props.title} />
-		{Astro.props.description && <meta name="description" content={description} />}
+		{description && <meta name="description" content={description} />}
 		{Astro.props.author && <meta name="author" content={Astro.props.author} />}
 		{Astro.props.keywords && <meta name="keywords" content={Array.isArray(Astro.props.keywords) ? Astro.props.keywords.join(', ') : Astro.props.keywords} />}
 		{Astro.props.generator && <meta name="generator" content={Astro.generator} />}
