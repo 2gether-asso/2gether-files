@@ -3,8 +3,6 @@ import { site } from '~/site'
 import Base from '~/layouts/Base.astro'
 import type { Props as BaseProps } from '~/layouts/Base.astro'
 
-import '~/styles/index.scss'
-
 export interface Props extends Omit<BaseProps, 'title'>
 {
 	title?: BaseProps['title']
