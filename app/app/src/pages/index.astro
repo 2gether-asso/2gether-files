@@ -1,17 +1,14 @@
 ---
-import "~/styles/index.scss"
-import Layout from "~/layouts/Layout.astro"
+import { site } from '~/site'
+import Layout from '~/layouts/Layout.astro'
 
 const dirPrefix = '/public/'
 const files = Object.keys(import.meta.glob('/public/**/*.pdf'))
 	.map(path => path.startsWith(dirPrefix) ? path.substring(dirPrefix.length) : path)
 ---
 
-<Layout
-	lang="fr"
-	title="Fichiers 2GETHER"
->
-	<h1>Fichiers 2GETHER</h1>
+<Layout>
+	<h1>{site.title}</h1>
 
 	<p>
 		Fichiers en rapport avec l'association 2GETHER, le serveur Discord 2GETHER, les projets 2GETHER, et la communauté 2GETHER.

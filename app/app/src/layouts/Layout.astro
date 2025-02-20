@@ -1,47 +1,33 @@
 ---
-export interface Props {
-	// HTML attributes
-	title: string
-	htmlClass?: string | undefined
-	htmlAttributes?: { [key: string]: string }
-	// Meta tags
-	description?: string | undefined
-	lang?: string
-	// Body attributes
-	bodyClass?: string | undefined
-	bodyAttributes?: { [key: string]: string }
+import { site } from '~/site'
+import Base from '~/layouts/Base.astro'
+import type { Props as BaseProps } from '~/layouts/Base.astro'
+
+import '~/styles/index.scss'
+
+export interface Props extends Omit<BaseProps, 'title'>
+{
+	title?: BaseProps['title']
 }
 
-const {
-	// HTML attributes
-	lang = "en",
-	htmlClass = undefined,
-	htmlAttributes = {},
-	// Meta tags
-	title,
-	description = undefined,
-	// Body attributes
-	bodyClass = undefined,
-	bodyAttributes = {},
-} = Astro.props
+const baseProps: BaseProps = {
+	...Astro.props,
+	title: Astro.props.title
+		? (site.title ? `${Astro.props.title} – ${site.title}` : Astro.props.title)
+		: (site.title || ''),
+	description: Astro.props.description || site.description || undefined,
+	author: Astro.props.author || site.author || undefined,
+	keywords: Astro.props.keywords || site.keywords || undefined,
+	themeColor: Astro.props.themeColor || site.themeColor || undefined,
+	favicon: Astro.props.favicon || site.favicon || undefined,
+	lang: Astro.props.lang || site.lang || undefined,
+}
 ---
 
-<!DOCTYPE html>
-<html lang={lang} class={htmlClass} {...htmlAttributes}>
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+<Base {...baseProps}>
 
-		<link rel="icon" href="/favicon.png" type="image/png" />
+	<slot slot="head" name="head" />
 
-		<title>{title}</title>
-		{description && <meta name="description" content={description} />}
-		<meta name="generator" content={Astro.generator} />
+	<slot />
 
-		<slot name="head" />
-	</head>
-
-	<body class={bodyClass} {...bodyAttributes}>
-		<slot />
-	</body>
-</html>
+</Base>
