@@ -47,6 +47,14 @@ jobs:
 
       # Execution steps
 
+      - name: Pull dependencies
+        run: |
+          # docker compose pull --ignore-buildable
+          docker compose \
+            -f ./docker-compose.yml -f ./docker-compose.cicd.yml \
+            --env-file .env \
+            pull --ignore-buildable
+
       - name: Build for production
         env:
           GITHUB_REPOSITORY_URL: https://github.com/${{ github.repository }}
@@ -54,6 +62,7 @@ jobs:
           BUILD_CHECK: "true" # Run type checks
         run: |
           # docker compose build
+          export DOCKER_UID="$(id -u)"
           docker compose \
             -f ./docker-compose.yml -f ./docker-compose.cicd.yml \
             --env-file .env \
@@ -62,6 +71,7 @@ jobs:
       - name: Copy application files
         run: |
           # docker compose up
+          export DOCKER_UID="$(id -u)"
           docker compose \
             -f ./docker-compose.yml -f ./docker-compose.cicd.yml \
             --env-file .env \
