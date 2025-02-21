@@ -1,9 +1,3 @@
-@layer base {
-	body {
-		@apply p-4;
-	}
-}
-
 @layer utilities {
 	.icon-align {
 		@apply align-[-0.125em];
