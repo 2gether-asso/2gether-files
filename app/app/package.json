@@ -27,7 +27,6 @@
     "@astrojs/check": "^0.9.4",
     "@tailwindcss/vite": "^4.0.8",
     "astro": "^5.3.0",
-    "sass": "^1.85.0",
     "tailwindcss": "^4.0.8",
     "typescript": "^5.7.3"
   },
