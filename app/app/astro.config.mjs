@@ -5,6 +5,7 @@ import { i18n } from '/src/config'
 
 // https://astro.build/config
 export default defineConfig({
+	integrations: [],
 	site: 'https://files.2gether-asso.fr',
 	vite: {
 		plugins: [
